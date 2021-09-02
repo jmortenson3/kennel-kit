@@ -1,0 +1,30 @@
+{
+  "name": "~TODO~",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "next",
+    "@types/cookie": "^0.4.0",
+    "@types/node-fetch": "^2.5.12",
+    "prettier": "2.3.2",
+    "svelte": "^3.34.0",
+    "svelte-check": "^2.0.0",
+    "tslib": "^2.0.0",
+    "typescript": "^4.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fontsource/fira-mono": "^4.2.2",
+    "@lukeed/uuid": "^2.0.0",
+    "cookie": "^0.4.1",
+    "dayjs": "^1.10.6",
+    "node-fetch": "^2.6.1",
+    "universal-cookie": "^4.0.4"
+  }
+}

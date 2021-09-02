@@ -1,0 +1,42 @@
+/*
+All colors in HSL, but just the numbers comma separated
+
+This allows you to do stuff like...
+button { background-color: hsla(var(--colorPrimary), .8)
+*/
+
+:root {
+  /* colors */
+  --green: 169, 47%, 15%;
+  --mintGreen: 163, 24%, 89%;
+  --yellow: 48, 81%, 55%;
+  --lightgray: 45, 15%, 95%;
+  --darkgray: 208, 18%, 28%;
+  --white: 0, 0%, 100%;
+  --red: 359, 65%, 49%;
+  --orange: 18, 87%, 57%;
+  --purple: 251, 38%, 46%;
+  --lightBlue: 215, 67%, 85%;
+  --black: 0, 0%, 0%;
+
+  /* fonts */
+  --fontFamilySerif: "Alice", serif;
+  --fontFamilySansSerif: sans-serif;
+  --fontFamilyDisplay: "Source Sans Pro", cursive;
+  --fontColor: var(--black);
+
+  /* theme colors */
+  --colorPrimary: var(--green);
+  --colorSecondary: var(--orange);
+
+  --btnPrimary: var(--green);
+  --btnPrimayFont: var(--white);
+  --btnSecondary: var(--lightgray);
+  --btnSecondaryFont: var(--green);
+
+  /* components */
+  --bgColor: var(--lightgray);
+  --bgCardColor: var(--white);
+  --navbar: var(--colorPrimary);
+  --navbarSelected: var(--colorSecondary);
+}

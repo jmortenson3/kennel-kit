@@ -1,0 +1,29 @@
+:root {
+  /* fonts */
+  --fontFamilySerif: "Alice, serif";
+  --fontFamilySansSerif: "sans-serif";
+  --fontFamilyDisplay: "Righteous, cursive";
+  --fontColor: black;
+
+  /* colors */
+  --green: #153a33;
+  --yellow: #e9c42d;
+  --gray: #f4f3f0;
+  --darkgray: #ebe9e5;
+  --white: #ffffff;
+  --red: #cc2c30;
+  --orange: #f16e34;
+  --purple: #5a49a3;
+  --blue: #bdd3f2;
+  --black: #000000;
+
+  /* theme colors */
+  --colorPrimary: var(--darkgray);
+  --colorSecondary: var(--orange);
+
+  /* components */
+  --bgColor: #f5f5f5;
+  --bgCardColor: #fff;
+  --navbar: var(--colorPrimary);
+  --navbarSelected: var(--colorSecondary);
+}

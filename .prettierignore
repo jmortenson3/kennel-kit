@@ -1,0 +1,6 @@
+# Ignore artifacts
+.DS_Store
+node_modules
+/.svelte-kit
+/package
+

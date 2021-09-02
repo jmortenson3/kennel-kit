@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Alice&family=Righteous&family=Chonburi&family=Calistoga&family=Source+Sans+Pro&display=swap");
+
+:root {
+  font-family: sans-serif;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+#svelte {
+  height: 100%;
+}
+
+fieldset {
+  border: none;
+}
