@@ -40,7 +40,7 @@
 </script>
 
 <div class="container">
-  <h3>{thisMonth.format('MMMM YYYY')}</h3>
+  <h6>{thisMonth.format("MMMM 'YY")}</h6>
   <div class="header">
     {#each daysOfWeek as day}
       <div>{day}</div>
@@ -91,12 +91,18 @@
   .container {
     max-width: 400px;
     padding: 1rem;
+    background-color: var(--bgCardColor);
   }
 
   .header,
   .body {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+  }
+
+  .header div {
+    text-align: center;
+    font-size: 0.8rem;
   }
 
   .body div {
@@ -108,33 +114,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
   }
 
   .past {
-    color: hsla(var(--fontColor), 0.2);
+    color: var(--calendarDisabledCellFontColor);
   }
 
   .future {
-    color: hsl(var(--fontColor));
+    color: var(--fontColor);
     /* transition: all 0.25s; */
   }
 
   .future:hover {
     cursor: pointer;
-    /* border: 1px solid black;
-    border-radius: 50%; */
-    box-shadow: 1px 2px 6px hsla(var(--darkgray), 0.5);
+    border: 1px solid var(--btnPrimary);
   }
 
   .rangeEnd {
-    background-color: hsl(var(--colorSecondary));
+    background-color: var(--calendarRangeEnd);
   }
 
   .rangeMiddle {
-    background-color: hsla(var(--colorSecondary), 0.3);
+    background-color: var(--calendarRangeMiddle);
   }
 
-  h3 {
+  h6 {
     text-align: center;
   }
 </style>

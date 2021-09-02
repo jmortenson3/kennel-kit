@@ -23,7 +23,7 @@
 
   form select {
     background-color: transparent;
-    color: hsl(var(--btnPrimayFont));
+    color: var(--btnPrimayFont);
     font-size: 1.4rem;
     border: none;
   }

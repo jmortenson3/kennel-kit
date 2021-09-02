@@ -12,13 +12,13 @@
     padding: 0.5rem 1rem;
     font-size: 1rem;
     font-family: var(--fontFamilySansSerif);
-    background-color: hsl(var(--btnPrimary));
-    color: hsl(var(--btnPrimayFont));
+    background-color: var(--btnPrimary);
+    color: var(--btnPrimayFont);
     border: none;
   }
 
   button:hover {
     cursor: pointer;
-    background-color: hsl(var(--btnPrimary), 0.8);
+    background-color: var(--btnPrimaryHover);
   }
 </style>

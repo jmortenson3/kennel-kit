@@ -15,7 +15,7 @@
     list-style-type: none;
     text-align: center;
     border-radius: 5px;
-    background-color: hsl(var(--bgCardColor));
+    background-color: var(--bgCardColor);
     transition: all 0.1s;
   }
 
@@ -23,10 +23,10 @@
     display: flex;
     padding: 0.25rem 1rem;
     text-decoration: none;
-    color: hsl(var(--fontColor));
+    color: var(--fontColor);
   }
 
   li:hover {
-    background-color: hsla(var(--colorSecondary));
+    background-color: var(--colorSecondary);
   }
 </style>

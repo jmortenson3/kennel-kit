@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Label from '$lib/components/Label.svelte';
+
   export let name: string;
   export let label: string = name;
   export let value: any;
@@ -6,7 +8,7 @@
   export let placeholder: string = '';
 </script>
 
-<label for={name}>{label}</label>
+<Label forName={name}>{label}</Label>
 <input type="text" {name} bind:value {disabled} {placeholder} />
 
 <style>

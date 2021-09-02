@@ -48,6 +48,6 @@
   div {
     display: flex;
     min-height: 100vh;
-    background-color: hsla(var(--bgColor));
+    background-color: var(--bgColor);
   }
 </style>

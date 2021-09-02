@@ -3,7 +3,7 @@
   import BookingsList from './bookings/BookingsList.svelte';
 </script>
 
-<h1>Your furry friends</h1>
+<h3>Your furry friends</h3>
 <PetList />
-<h1>Upcoming Bookings</h1>
+<h3>Upcoming Bookings</h3>
 <BookingsList />

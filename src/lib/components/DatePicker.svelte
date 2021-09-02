@@ -13,34 +13,30 @@
   let selectedEndDate: dayjs.Dayjs;
 
   function handleClickCell(date: dayjs.Dayjs) {
-    console.log(`handling cell click at ${new Date().getTime()}`);
     if (
-      (selectedStartDate || (!selectedStartDate && !selectedEndDate)) &&
-      date.isBefore(dayjs(), 'day')
+      ((selectedStartDate || (!selectedStartDate && !selectedEndDate)) &&
+        date.isBefore(dayjs(), 'day')) ||
+      (selectedStartDate &&
+        selectedEndDate &&
+        selectedStartDate.isSame(date, 'day'))
     ) {
       selectedStartDate = null;
       selectedEndDate = null;
     } else if (selectedStartDate == null) {
       selectedStartDate = date;
-    } else if (selectedStartDate.isAfter(date)) {
+    } else if (selectedStartDate.isAfter(date, 'day')) {
       selectedStartDate = date;
       selectedEndDate = null;
     } else {
       selectedEndDate = date;
     }
 
-    console.log(`dispatching at ${new Date().getTime()}`);
     dispatch('change', {
       startDate: selectedStartDate,
       endDate: selectedEndDate,
     });
   }
 </script>
-
-<p>Drop off</p>
-<small>{selectedStartDate?.format('ddd, MMM D') ?? 'Add dates'}</small>
-<p>Pick up</p>
-<small>{selectedEndDate?.format('ddd, MMM D') ?? 'Add dates'}</small>
 
 <div>
   <Calendar
@@ -59,5 +55,6 @@
 <style>
   div {
     display: flex;
+    box-shadow: 1px 1px 3px var(--shadowColor);
   }
 </style>

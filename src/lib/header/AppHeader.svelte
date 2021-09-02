@@ -72,7 +72,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: hsla(var(--navbar));
+    background-color: var(--navbar);
     color: white;
     margin-right: 1rem;
     width: 240px;
@@ -110,9 +110,10 @@
     margin: 0;
     margin-bottom: 0.5rem;
     padding-left: 1rem;
-    font-family: var(--fontFamilySerif);
+    font-family: var(--fontFamilyDisplay);
+    font-weight: normal;
     letter-spacing: 2px;
-    color: hsla(var(--btnPrimayFont), 0.6);
+    color: var(--navHeaderColor);
     /* text-transform: uppercase; */
     font-size: 1rem;
   }
@@ -142,8 +143,8 @@
   }
 
   li.active {
-    background-color: hsla(var(--navbarSelected), 1);
-    color: hsl(var(--btnSecondaryFont));
+    background-color: var(--navbarSelected);
+    color: var(--navbarSelectedFont);
   }
 
   nav ul li a {
@@ -160,6 +161,6 @@
   }
 
   nav ul li:last-child {
-    color: hsla(var(--btnPrimayFont), 0.6);
+    color: var(--navHeaderColor);
   }
 </style>

@@ -21,22 +21,44 @@ button { background-color: hsla(var(--colorPrimary), .8)
 
   /* fonts */
   --fontFamilySerif: "Alice", serif;
-  --fontFamilySansSerif: sans-serif;
-  --fontFamilyDisplay: "Source Sans Pro", cursive;
-  --fontColor: var(--black);
+  --fontFamilySansSerif: "Source Sans Pro", sans-serif;
+  --fontFamilyDisplay: "Calistoga", cursive;
 
-  /* theme colors */
+  /* theme colors ~DON'T USE THESE DIRECTLY~ */
+  --fontColor: var(--black);
   --colorPrimary: var(--green);
   --colorSecondary: var(--orange);
+  --colorTertiary: var(--purple);
 
-  --btnPrimary: var(--green);
-  --btnPrimayFont: var(--white);
-  --btnSecondary: var(--lightgray);
-  --btnSecondaryFont: var(--green);
+  /* USE THESE DIRECTLY */
+  --btnPrimary: hsl(var(--green));
+  --btnPrimaryHover: hsla(var(--green), 0.8);
+  --btnPrimayFont: hsl(var(--white));
+  --btnSecondary: hsl(var(--lightgray));
+  --btnSecondaryHover: hsla(var(--lightgray), 0.8);
+  --btnSecondaryFont: hsl(var(--green));
 
   /* components */
-  --bgColor: var(--lightgray);
-  --bgCardColor: var(--white);
-  --navbar: var(--colorPrimary);
-  --navbarSelected: var(--colorSecondary);
+  --bgColor: hsl(var(--lightgray));
+  --bgCardColor: hsl(var(--white));
+  --navbar: hsl(var(--colorPrimary));
+  --navbarSelected: hsl(var(--colorSecondary));
+  --navbarSelectedFont: hsl(var(--white));
+  --navHeaderColor: hsla(var(--white), 0.3);
+
+  --headingColor: hsl(var(--green));
+
+  --textHighlightPrimary: hsla(var(--colorPrimary), 0.5);
+  --textHighlightSecondary: hsla(var(--colorSecondary), 0.5);
+  --textHighlightTertiary: hsla(var(--colorTertiary), 0.3);
+
+  --inputTextHighlight: hsla(var(--colorSecondary), 0.7);
+  --selectedChipColor: hsl(var(--purple));
+  --selectedChipFontColor: hsl(var(--white));
+
+  --calendarDisabledCellFontColor: hsla(var(--fontColor), 0.2);
+  --calendarRangeEnd: hsl(var(--colorSecondary));
+  --calendarRangeMiddle: hsla(var(--colorSecondary), 0.3);
+
+  --shadowColor: hsla(var(--darkgray), 0.5);
 }
