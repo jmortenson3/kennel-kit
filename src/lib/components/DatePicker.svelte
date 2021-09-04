@@ -39,22 +39,27 @@
 </script>
 
 <div>
-  <Calendar
-    onClickCell={handleClickCell}
-    highlightStartAt={selectedStartDate}
-    highlightEndAt={selectedEndDate}
-  />
-  <Calendar
-    onClickCell={handleClickCell}
-    highlightStartAt={selectedStartDate}
-    highlightEndAt={selectedEndDate}
-    date={nextMonth}
-  />
+  <div>
+    <Calendar
+      onClickCell={handleClickCell}
+      highlightStartAt={selectedStartDate}
+      highlightEndAt={selectedEndDate}
+    />
+    <Calendar
+      onClickCell={handleClickCell}
+      highlightStartAt={selectedStartDate}
+      highlightEndAt={selectedEndDate}
+      date={nextMonth}
+    />
+  </div>
 </div>
 
 <style>
   div {
     display: flex;
+  }
+
+  div div {
     box-shadow: 1px 1px 3px var(--shadowColor);
   }
 </style>

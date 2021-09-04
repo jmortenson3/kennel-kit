@@ -8,5 +8,6 @@
   label {
     font-weight: bold;
     margin-right: 1rem;
+    font-size: 1.4rem;
   }
 </style>

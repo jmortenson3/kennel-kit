@@ -6,6 +6,9 @@
   import OrganizationPicker from '$lib/organizations/OrganizationPicker.svelte';
   import type { Organization, Location } from '$lib/types';
 
+  const isClient =
+    $session.user.user_settings.find((us) => (us.key = 'isClient'))?.value ===
+    'true';
   let organizations: Organization[] = [];
   let locations: Location[] = [];
   let selectedOrg: Organization;
@@ -34,30 +37,36 @@
 
 <header>
   <div class="corner">
-    <a href="/app">
-      <span>🐕‍🦺</span>
-    </a>
+    <a href="/app">🌿 Pupper</a>
     <OrganizationPicker {organizations} />
   </div>
   <nav>
-    <h3>Locations</h3>
-    <ul>
-      {#each locations as location}
-        <li
-          class:active={$page.path ===
-            `/app/o/${selectedOrg.id}/l/${location.id}`}
-        >
-          <a href={`/app/o/${selectedOrg.id}/l/${location.id}`}>
-            {location.name}
-          </a>
+    {#if isClient}
+      <h3>Locations</h3>
+      <ul>
+        {#each locations as location}
+          <li
+            class:active={$page.path ===
+              `/app/o/${selectedOrg.id}/l/${location.id}`}
+          >
+            <a href={`/app/o/${selectedOrg.id}/l/${location.id}`}>
+              {location.name}
+            </a>
+          </li>
+        {/each}
+        <li>
+          <a href={`/app/o/${selectedOrg?.id}/createLocation`}
+            >+ Create location</a
+          >
         </li>
-      {/each}
-      <li>
-        <a href={`/app/o/${selectedOrg?.id}/createLocation`}
-          >+ Create location</a
-        >
-      </li>
-    </ul>
+      </ul>
+    {:else}
+      <ul>
+        <li><a href="/app">Dashboard</a></li>
+        <li><a href="/app/pets">Pets</a></li>
+        <li><a href="/app/bookings">Bookings</a></li>
+      </ul>
+    {/if}
   </nav>
 
   <div class="corner">
@@ -69,13 +78,17 @@
 
 <style>
   header {
+    position: fixed;
+    flex: 0 0 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--navbar);
-    color: white;
+    color: var(--navbarFontColor);
     margin-right: 1rem;
-    width: 240px;
+    width: 225px;
+    box-shadow: 2px 0px 15px -10px var(--shadowColor);
+    height: 100%;
   }
 
   .corner {
@@ -85,7 +98,9 @@
   }
 
   .corner a {
-    color: white;
+    color: var(--navbarFontColor);
+    font-family: var(--fontFamilyDisplay);
+    font-size: 1.4rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,7 +168,7 @@
     padding: 0 1em;
     color: var(--heading-color);
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 10%;
     text-decoration: none;

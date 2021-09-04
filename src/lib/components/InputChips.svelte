@@ -23,6 +23,7 @@
   legend {
     font-weight: bold;
     float: left;
+    font-size: 1.4rem;
   }
 
   input[type='checkbox'] {

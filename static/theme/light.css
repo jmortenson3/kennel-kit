@@ -18,19 +18,22 @@ button { background-color: hsla(var(--colorPrimary), .8)
   --purple: 251, 38%, 46%;
   --lightBlue: 215, 67%, 85%;
   --black: 0, 0%, 0%;
+  --brown: 356, 24%, 25%;
+  --cream: 30, 64%, 79%;
 
   /* fonts */
   --fontFamilySerif: "Alice", serif;
   --fontFamilySansSerif: "Source Sans Pro", sans-serif;
   --fontFamilyDisplay: "Calistoga", cursive;
 
-  /* theme colors ~DON'T USE THESE DIRECTLY~ */
+  /* theme colors ~DON'T USE THESE IN COMPONENTS~ */
   --fontColor: var(--black);
   --colorPrimary: var(--green);
   --colorSecondary: var(--orange);
   --colorTertiary: var(--purple);
+  --colorQuaternary: var(--yellow);
 
-  /* USE THESE DIRECTLY */
+  /* USE THESE IN COMPONENTS (from here down) */
   --btnPrimary: hsl(var(--green));
   --btnPrimaryHover: hsla(var(--green), 0.8);
   --btnPrimayFont: hsl(var(--white));
@@ -41,16 +44,18 @@ button { background-color: hsla(var(--colorPrimary), .8)
   /* components */
   --bgColor: hsl(var(--lightgray));
   --bgCardColor: hsl(var(--white));
-  --navbar: hsl(var(--colorPrimary));
+  --navbar: hsl(var(--white));
+  --navbarFontColor: hsl(var(--black));
   --navbarSelected: hsl(var(--colorSecondary));
-  --navbarSelectedFont: hsl(var(--white));
-  --navHeaderColor: hsla(var(--white), 0.3);
+  --navbarSelectedFont: hsl(var(--black));
+  --navHeaderColor: hsla(var(--black), 0.5);
 
   --headingColor: hsl(var(--green));
 
-  --textHighlightPrimary: hsla(var(--colorPrimary), 0.5);
+  --textHighlightPrimary: hsla(var(--colorPrimary), 0.3);
   --textHighlightSecondary: hsla(var(--colorSecondary), 0.5);
   --textHighlightTertiary: hsla(var(--colorTertiary), 0.3);
+  --textHighlightQuaternary: hsla(var(--colorQuaternary), 0.3);
 
   --inputTextHighlight: hsla(var(--colorSecondary), 0.7);
   --selectedChipColor: hsl(var(--purple));

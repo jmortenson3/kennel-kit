@@ -16,12 +16,15 @@
       });
 
       const org: Organization = res.data;
-      const loc: Location = org.location.find((l) => l.id === locId);
+      const selectedLocation: Location = org.location.find(
+        (l) => l.id === locId
+      );
 
       return {
         props: {
           org,
-          loc,
+          selectedLocation,
+          allLocations: org.location,
         },
       };
     } catch (err) {
@@ -39,13 +42,11 @@
   import Input from '$lib/components/InputText.svelte';
   import InputChips from '$lib/components/InputChips.svelte';
   import Label from '$lib/components/Label.svelte';
-  import About from '../about.svelte';
-  import AppHeader from '../../lib/header/AppHeader.svelte';
-  import BookingCard from '../../lib/bookings/BookingCard.svelte';
-  import BookingsList from '../../lib/bookings/BookingsList.svelte';
+  import InputDropdown from '$lib/components/InputDropdown.svelte';
 
   export let org: Organization;
-  export let loc: Location;
+  export let selectedLocation: Location;
+  export let allLocations: Location[];
 
   let errorMessage = '';
   let disabled: boolean = false;
@@ -57,8 +58,6 @@
   let pickUpDate: dayjs.Dayjs; // '2021-08-31';
   let pickUpTime: string; // '08:00';
   let selectedPets: string[] = [];
-
-  let summary = '';
 
   function joinNames(names: string[]) {
     if (names.length === 0) {
@@ -79,6 +78,7 @@
   $: petSummary = joinNames(petNames);
   $: dropOffDateSummary = dropOffDate ? dropOffDate.format('ddd, MMM D') : '';
   $: pickUpDateSummary = pickUpDate ? pickUpDate.format('ddd, MMM D') : '';
+  $: locationSummary = selectedLocation;
 
   function handleDateChange(
     event: CustomEvent<{ startDate?: dayjs.Dayjs; endDate?: dayjs.Dayjs }>
@@ -109,7 +109,7 @@
         path: 'api/v1/bookings',
         data: {
           orgId: org.id,
-          locId: loc.id,
+          locId: selectedLocation.id,
           pickUpAt: pickUpAt,
           dropOffAt: dropOffAt,
           bookingDetails: [
@@ -135,7 +135,13 @@
   {/if}
   <fieldset>
     <Input disabled value={org.name} name="where" label="Where?" />
-    <Input disabled value={loc.name} name="" label="" />
+    <InputDropdown
+      {disabled}
+      value={selectedLocation.name}
+      options={allLocations}
+      name="location"
+    />
+    <!-- TODO add map here of the location -->
   </fieldset>
   <fieldset>
     <InputChips
@@ -152,21 +158,25 @@
   </fieldset>
 
   <p class="summary">
-    {dropOffDate && !petSummary ? '...' : ''}
     {#if petSummary}
       <span class="tertiary">{petSummary}</span>
     {/if}
   </p>
   <p class="summary">
-    {petSummary && !dropOffDateSummary ? '...' : ''}
-    {#if dropOffDateSummary}
-      will be dropped off on <span class="secondary">{dropOffDateSummary}</span>
+    {locationSummary && !petSummary && dropOffDateSummary ? '...' : ''}
+    {#if locationSummary && (petSummary || dropOffDateSummary)}
+      will be staying at <span class="quaternary">{locationSummary.name}</span>
     {/if}
   </p>
   <p class="summary">
+    {#if dropOffDateSummary}
+      from <span class="secondary">{dropOffDateSummary}</span>
+    {/if}
     {petSummary && dropOffDateSummary && !pickUpDateSummary ? '...' : ''}
+  </p>
+  <p class="summary">
     {#if pickUpDateSummary}
-      and picked up on <span class="secondary">{pickUpDateSummary}</span>
+      to <span class="secondary">{pickUpDateSummary}</span>
     {/if}
   </p>
 
@@ -199,6 +209,10 @@
     padding-right: 5px;
     font-weight: normal;
     font-family: var(--fontFamilyDisplay);
+  }
+
+  .summary span.quaternary {
+    background-color: var(--textHighlightQuaternary);
   }
 
   .summary span.secondary {

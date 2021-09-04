@@ -22,9 +22,11 @@
   }
 
   form select {
+    font-family: var(--fontFamilySansSerif);
+    font-weight: bold;
     background-color: transparent;
-    color: var(--btnPrimayFont);
-    font-size: 1.4rem;
+    color: var(--navbarFontColor);
+    font-size: 1.6rem;
     border: none;
   }
 

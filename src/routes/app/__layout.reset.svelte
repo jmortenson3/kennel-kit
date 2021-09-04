@@ -45,9 +45,9 @@
 </div>
 
 <style>
-  div {
-    display: flex;
-    min-height: 100vh;
-    background-color: var(--bgColor);
+  main {
+    margin-left: 225px;
+    padding-left: 1rem;
+    overflow: auto;
   }
 </style>

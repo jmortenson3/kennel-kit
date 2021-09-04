@@ -24,16 +24,20 @@
   });
 </script>
 
-<div>
-  {#if pets && pets.length > 0}
-    <a href="/app/createPet"><h3>Add Pet</h3></a>
+{#if pets && pets.length > 0}
+  <a href="/app/createPet">Add Pet</a>
+  <ul>
     {#each pets as pet}
-      <PetCard name={pet.name} id={pet.id} />
+      <PetCard name={pet.name} id={pet.id} style="margin-bottom: 15px;" />
     {/each}
-  {:else}
-    <p><a href="/app/createPet">Let's add your pets!</a></p>
-  {/if}
-</div>
+  </ul>
+{:else}
+  <a href="/app/createPet">Let's add your pets!</a>
+{/if}
 
 <style>
+  ul {
+    max-width: 400px;
+    padding-left: 0;
+  }
 </style>

@@ -1,12 +1,13 @@
 <script lang="ts">
   export let id: number;
   export let name: string;
+
   const url = `/app/pets/${id}`;
 </script>
 
-<li>
+<li style={$$props.style}>
   <a href={url}>
-    <h3>{name}</h3>
+    <h6>{name}</h6>
   </a>
 </li>
 
@@ -27,6 +28,6 @@
   }
 
   li:hover {
-    background-color: var(--colorSecondary);
+    background-color: var(--textHighlightPrimary);
   }
 </style>
