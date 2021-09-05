@@ -24,6 +24,7 @@
         props: {
           org,
           selectedLocation,
+          selectedLocationId: selectedLocation.id,
           allLocations: org.location,
         },
       };
@@ -43,9 +44,11 @@
   import InputChips from '$lib/components/InputChips.svelte';
   import Label from '$lib/components/Label.svelte';
   import InputDropdown from '$lib/components/InputDropdown.svelte';
+  import InputTime from '$lib/components/InputTime.svelte';
 
   export let org: Organization;
   export let selectedLocation: Location;
+  let selectedLocationId: string | number;
   export let allLocations: Location[];
 
   let errorMessage = '';
@@ -53,11 +56,15 @@
   let success: boolean;
   let pets: any[] = $session.user.pet;
   let petId = pets?.[0].id ?? '';
-  let dropOffDate: dayjs.Dayjs; // '2021-08-23';
-  let dropOffTime: string; // '17:00';
-  let pickUpDate: dayjs.Dayjs; // '2021-08-31';
-  let pickUpTime: string; // '08:00';
-  let selectedPets: string[] = [];
+  let dropOffDate: dayjs.Dayjs;
+  let dropOffHour: number;
+  let dropOffMinute: number;
+  let dropOffAmpm: string;
+  let pickUpDate: dayjs.Dayjs;
+  let pickUpHour: number;
+  let pickUpMinute: number;
+  let pickUpAmpm: string;
+  let selectedPetsString: string[] = [];
 
   function joinNames(names: string[]) {
     if (names.length === 0) {
@@ -74,10 +81,14 @@
     }
   }
 
-  $: petNames = selectedPets.map((p) => JSON.parse(p).name);
+  $: selectedPets = selectedPetsString.map((p) => JSON.parse(p));
+  $: petNames = selectedPets.map((p) => p.name);
   $: petSummary = joinNames(petNames);
   $: dropOffDateSummary = dropOffDate ? dropOffDate.format('ddd, MMM D') : '';
   $: pickUpDateSummary = pickUpDate ? pickUpDate.format('ddd, MMM D') : '';
+  $: selectedLocation = allLocations.find(
+    (x) => x.id === (selectedLocationId as number)
+  );
   $: locationSummary = selectedLocation;
 
   function handleDateChange(
@@ -88,42 +99,66 @@
   }
 
   const handleSubmit = async () => {
-    let dropOffAt: string;
-    let pickUpAt: string;
+    let dropOffAtISO: string;
+    let pickUpAtISO: string;
 
     try {
-      let dropOffAtDatetime = new Date(`${dropOffDate}T${dropOffTime}:00`);
-      let pickUpAtDatetime = new Date(`${pickUpDate}T${pickUpTime}:00`);
-      dropOffAt = dropOffAtDatetime.toISOString();
-      pickUpAt = pickUpAtDatetime.toISOString();
-      console.log(dropOffAt, pickUpAt);
+      let dropOffDatetime = dropOffDate
+        .hour(dropOffHour + (dropOffAmpm.toUpperCase() === 'PM' ? 12 : 0))
+        .minute(dropOffMinute)
+        .second(0);
+      let pickUpDatetime = pickUpDate
+        .hour(pickUpHour + (pickUpAmpm.toUpperCase() === 'PM' ? 12 : 0))
+        .minute(pickUpMinute)
+        .second(0);
+
+      //TODO timezone? this seems to adjust know what utc offset to use.
+      dropOffAtISO = dropOffDatetime.toISOString();
+      pickUpAtISO = pickUpDatetime.toISOString();
+      console.log(dropOffAtISO, pickUpAtISO);
     } catch (err) {
       errorMessage = 'Invalid pick up/drop off dates ⌚';
       console.error(err);
       return;
     }
 
+    let bookingDetails: any[];
+
     try {
+      bookingDetails = selectedPets.map((p) => {
+        return {
+          petId: p.id,
+        };
+      });
+    } catch (err) {
+      errorMessage = 'Error gathering pet details 😿.';
+      console.log(err);
+      return;
+    }
+
+    try {
+      disabled = true;
       errorMessage = '';
+
+      let data = {
+        orgId: org.id,
+        locId: selectedLocation.id,
+        pickUpAt: pickUpAtISO,
+        dropOffAt: dropOffAtISO,
+        bookingDetails,
+      };
+
       const booking = await post({
         path: 'api/v1/bookings',
-        data: {
-          orgId: org.id,
-          locId: selectedLocation.id,
-          pickUpAt: pickUpAt,
-          dropOffAt: dropOffAt,
-          bookingDetails: [
-            {
-              petId: petId,
-            },
-          ],
-        },
+        data,
         token: $session.token,
       });
       //await goto('/app');
     } catch (err) {
       errorMessage = 'Failed to create organization. Try again later.';
       console.log(err);
+    } finally {
+      disabled = false;
     }
   };
 </script>
@@ -131,13 +166,13 @@
 <h1>Create Booking</h1>
 <form>
   {#if errorMessage}
-    <p>{errorMessage}</p>
+    <p class="error">{errorMessage}</p>
   {/if}
   <fieldset>
     <Input disabled value={org.name} name="where" label="Where?" />
     <InputDropdown
       {disabled}
-      value={selectedLocation.name}
+      bind:value={selectedLocationId}
       options={allLocations}
       name="location"
     />
@@ -145,7 +180,7 @@
   </fieldset>
   <fieldset>
     <InputChips
-      bind:group={selectedPets}
+      bind:group={selectedPetsString}
       options={pets}
       name="pets"
       label="Who?"
@@ -171,12 +206,22 @@
   <p class="summary">
     {#if dropOffDateSummary}
       from <span class="secondary">{dropOffDateSummary}</span>
+      <InputTime
+        bind:hour={dropOffHour}
+        bind:minute={dropOffMinute}
+        bind:ampm={dropOffAmpm}
+      />
     {/if}
     {petSummary && dropOffDateSummary && !pickUpDateSummary ? '...' : ''}
   </p>
   <p class="summary">
     {#if pickUpDateSummary}
       to <span class="secondary">{pickUpDateSummary}</span>
+      <InputTime
+        bind:hour={pickUpHour}
+        bind:minute={pickUpMinute}
+        bind:ampm={pickUpAmpm}
+      />
     {/if}
   </p>
 
@@ -186,16 +231,6 @@
 <style>
   fieldset {
     margin-bottom: 2rem;
-  }
-  input[type='time'] {
-    background-color: var(--bgCardColor);
-    border: none;
-    font-family: var(--fontFamilySansSerif);
-    padding: 8px;
-  }
-
-  .dateInput {
-    font-weight: bold;
   }
 
   .summary {
@@ -221,5 +256,9 @@
 
   .summary span.tertiary {
     background-color: var(--textHighlightTertiary);
+  }
+
+  .error {
+    color: var(--errorColor);
   }
 </style>

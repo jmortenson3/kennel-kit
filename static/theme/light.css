@@ -41,6 +41,8 @@ button { background-color: hsla(var(--colorPrimary), .8)
   --btnSecondaryHover: hsla(var(--lightgray), 0.8);
   --btnSecondaryFont: hsl(var(--green));
 
+  --errorColor: hsl(var(--red));
+
   /* components */
   --bgColor: hsl(var(--lightgray));
   --bgCardColor: hsl(var(--white));

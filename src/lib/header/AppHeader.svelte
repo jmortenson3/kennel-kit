@@ -27,11 +27,10 @@
 
   onMount(async () => {
     organizations = await fetchOrgs();
-    console.log(typeof $page.params.orgId);
-    selectedOrg = organizations.find(
+    selectedOrg = organizations?.find(
       (o) => o.id === parseInt($page.params.orgId)
     );
-    locations = selectedOrg.location;
+    locations = selectedOrg?.location;
   });
 </script>
 
