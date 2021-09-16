@@ -1,7 +1,7 @@
 <script lang="ts">
   import OrganizationCard from '$lib/organizations/OrganizationCard.svelte';
 
-  export let organizations: any[];
+  export let organizations: any[] = [];
 </script>
 
 <div>

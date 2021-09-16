@@ -67,5 +67,8 @@ button { background-color: hsla(var(--colorPrimary), .8)
   --calendarRangeEnd: hsl(var(--colorSecondary));
   --calendarRangeMiddle: hsla(var(--colorSecondary), 0.3);
 
+  --tableRowColor: hsl(var(--white));
+  --tableSubRowColor: hsla(var(--white), 0.5);
+
   --shadowColor: hsla(var(--darkgray), 0.5);
 }

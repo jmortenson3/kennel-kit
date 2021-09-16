@@ -30,9 +30,6 @@
     appearance: none;
   }
 
-  input:checked {
-  }
-
   label {
     font-weight: bold;
     padding: 5px 12px;

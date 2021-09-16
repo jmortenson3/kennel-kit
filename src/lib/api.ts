@@ -21,6 +21,8 @@ const send = async ({ method, path, data, token }: SendInput) => {
   const opts: RequestInit = { method, headers: {} };
   opts.mode = "cors";
 
+  console.log("fetching", method, path);
+
   if (data) {
     opts.headers["Content-Type"] = "application/json";
     opts.body = JSON.stringify(data);
@@ -34,9 +36,19 @@ const send = async ({ method, path, data, token }: SendInput) => {
 
   const res = await fetch(`${API_URL}/${path}`, opts);
   if (res.ok) {
+    console.log("OK", method, path);
     return await res.json();
   } else {
-    throw new Error(`HTTP Error ${res.status}`);
+    try {
+      console.log("trying to parse error json");
+      let json = await res.json();
+      console.log(json);
+      throw new Error(JSON.stringify(json));
+    } catch (err) {
+      console.log("NOT OK", method, path);
+      console.log(err);
+      throw new Error(err);
+    }
   }
 };
 

@@ -1,15 +1,28 @@
-<script lang="ts">
-  import { session } from '$app/stores';
-  import UserDashboard from '$lib/UserDashboard.svelte';
-  import ClientDashboard from '$lib/ClientDashboard.svelte';
+<script context="module" lang="ts">
+  import type { LoadInput, LoadOutput } from '@sveltejs/kit';
+  import PetList from '$lib/pets/PetList.svelte';
+  import BookingsList from '$lib/bookings/BookingsList.svelte';
 
-  const isClient =
-    $session.user.user_settings.find((us) => (us.key = 'isClient'))?.value ===
-    'true';
+  export async function load({ session }: LoadInput): Promise<LoadOutput> {
+    const isClient =
+      session.user.user_settings.find((us) => (us.key = 'isClient'))?.value ===
+      'true';
+
+    if (isClient) {
+      let organizations: any[] = session.user.organization_user.map(
+        (org_user) => org_user.organization
+      );
+      return {
+        redirect: `/app/o/${organizations[0].id}`,
+        status: 302,
+      };
+    } else {
+      return {};
+    }
+  }
 </script>
 
-{#if isClient}
-  <ClientDashboard />
-{:else}
-  <UserDashboard />
-{/if}
+<h5>Your furry friends</h5>
+<PetList />
+<h5>Upcoming Bookings</h5>
+<BookingsList />

@@ -1,1 +1,5 @@
-{}
+{
+    "svelteBracketNewLine": false,
+    "htmlWhitespaceSensitivity": "strict",
+    "svelteIndentScriptAndStyle": true
+}

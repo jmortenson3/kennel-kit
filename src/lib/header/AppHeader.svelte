@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { page, session } from '$app/stores';
-  import ThemeSwitcher from '$lib/ThemeSwitcher.svelte';
-  import { onMount } from 'svelte';
-  import { get } from '$lib/api';
-  import OrganizationPicker from '$lib/organizations/OrganizationPicker.svelte';
-  import type { Organization, Location } from '$lib/types';
+  import { page, session } from "$app/stores";
+  import ThemeSwitcher from "$lib/ThemeSwitcher.svelte";
+  import { onMount } from "svelte";
+  import { get } from "$lib/api";
+  import OrganizationPicker from "$lib/organizations/OrganizationPicker.svelte";
+  import type { Organization, Location } from "$lib/types";
 
   const isClient =
-    $session.user.user_settings.find((us) => (us.key = 'isClient'))?.value ===
-    'true';
+    $session.user.user_settings.find((us) => (us.key = "isClient"))?.value ===
+    "true";
   let organizations: Organization[] = [];
   let locations: Location[] = [];
   let selectedOrg: Organization;
@@ -30,7 +30,8 @@
     selectedOrg = organizations?.find(
       (o) => o.id === parseInt($page.params.orgId)
     );
-    locations = selectedOrg?.location;
+    console.log(selectedOrg);
+    locations = selectedOrg?.location ?? [];
   });
 </script>
 
@@ -46,8 +47,7 @@
         {#each locations as location}
           <li
             class:active={$page.path ===
-              `/app/o/${selectedOrg.id}/l/${location.id}`}
-          >
+              `/app/o/${selectedOrg.id}/l/${location.id}`}>
             <a href={`/app/o/${selectedOrg.id}/l/${location.id}`}>
               {location.name}
             </a>
@@ -55,8 +55,7 @@
         {/each}
         <li>
           <a href={`/app/o/${selectedOrg?.id}/createLocation`}
-            >+ Create location</a
-          >
+            >+ Create location</a>
         </li>
       </ul>
     {:else}
@@ -107,11 +106,6 @@
     height: 100%;
     text-decoration: none;
     margin-bottom: 1rem;
-  }
-
-  .corner span {
-    font-size: 1.8em;
-    object-fit: contain;
   }
 
   nav {
