@@ -11,7 +11,6 @@
 		<nav>
 			<ul>
 				<li class:active={$page.path === '/'}><a href="/">Home</a></li>
-				<li class:active={$page.path === '/about'}><a href="/about">About</a></li>
 				<li class:active={$page.path === '/login'}><a href="/login">Login</a></li>
 				<li class:active={$page.path === '/signup'}><a href="/signup">Signup</a></li>
 				<li class:active={$page.path === '/app'}><a href="/app">Dashboard</a></li>
